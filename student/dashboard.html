@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard - Gnanamani College of Technology</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="../assets/images/gnanamani_logo.jpg" 
+             alt="Gnanamani College of Technology" 
+             class="nav-logo">
+        <div class="brand-text">
+          <h1>Gnanamani College of Technology</h1>
+          <p>Student Question Paper Portal</p>
+        </div>
+      </div>
+
+      <div class="nav-user-panel">
+        <div class="user-badge">
+          <div class="user-avatar" id="userAvatar">S</div>
+          <div class="user-info">
+            <div class="user-name" id="navStudentName">Loading...</div>
+            <div class="user-meta" id="navStudentMeta">Student</div>
+          </div>
+        </div>
+        <button id="btnLogout" class="btn-logout" title="Log out from portal">
+          <span>Sign Out</span> &rarr;
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Dashboard Content -->
+  <main class="main-content">
+    
+    <!-- Student Profile Banner -->
+    <section class="profile-banner">
+      <div class="profile-title">
+        <h2>Welcome back, <span id="studentName">Student</span>!</h2>
+        <p>Access and download Anna University curriculum question papers for your department.</p>
+      </div>
+      <div class="profile-pills">
+        <div class="profile-pill">
+          <strong>Student ID:</strong> <span id="studentId">---</span>
+        </div>
+        <div class="profile-pill">
+          <strong>Department:</strong> <span id="studentDept">---</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter & Search Controls -->
+    <section class="filter-card">
+      <div class="filter-header">
+        <h3><span>🔍</span> Question Paper Filter</h3>
+      </div>
+
+      <div class="filter-grid">
+        <!-- Regulation Dropdown -->
+        <div class="filter-group">
+          <label for="filterRegulation">Regulation</label>
+          <select id="filterRegulation">
+            <option value="R2023" selected>Regulation 2023 (R2023)</option>
+          </select>
+        </div>
+
+        <!-- Academic Year Dropdown -->
+        <div class="filter-group">
+          <label for="filterYear">Academic Year</label>
+          <select id="filterYear">
+            <option value="">All Academic Years</option>
+            <option value="2023">2023</option>
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+          </select>
+        </div>
+
+        <!-- Semester Dropdown -->
+        <div class="filter-group">
+          <label for="filterSemester">Semester</label>
+          <select id="filterSemester">
+            <option value="">All Semesters</option>
+            <option value="1">Semester 1 (Common)</option>
+            <option value="2">Semester 2 (Common)</option>
+            <option value="3">Semester 3</option>
+            <option value="4">Semester 4</option>
+            <option value="5">Semester 5</option>
+            <option value="6">Semester 6</option>
+            <option value="7">Semester 7</option>
+          </select>
+        </div>
+
+        <!-- Subject Dropdown (Dynamically Loaded) -->
+        <div class="filter-group">
+          <label for="filterSubject">Subject</label>
+          <select id="filterSubject">
+            <option value="">All Subjects</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-actions">
+        <button type="button" id="btnReset" class="btn-reset">Reset Filters</button>
+        <button type="button" id="btnSearch" class="btn-search">
+          <span>Search Papers</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section">
+      <div class="results-header">
+        <div class="results-count" id="resultsCount">Loading Question Papers...</div>
+        <div class="live-search-wrap">
+          <input type="text" id="liveSearch" placeholder="Instant search by title or code...">
+        </div>
+      </div>
+
+      <!-- Question Papers Grid -->
+      <div class="papers-grid" id="papersContainer">
+        <!-- Rendered by dashboard.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="portal-footer">
+    &copy; 2024 Gnanamani College of Technology. Question Paper Management Portal.
+  </footer>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

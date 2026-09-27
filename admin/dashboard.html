@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Portal - Gnanamani College of Technology</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand">
+        <img src="../assets/images/gnanamani_logo.jpg" 
+             alt="Gnanamani College of Technology" 
+             class="nav-logo">
+        <div class="brand-text">
+          <h1>Gnanamani College of Technology</h1>
+          <p>Staff & Administration Portal</p>
+        </div>
+      </div>
+
+      <div class="nav-user-panel">
+        <div class="staff-badge">
+          <div class="staff-avatar" id="staffAvatar">A</div>
+          <div class="staff-info">
+            <div class="staff-name" id="navStaffName">Staff Admin</div>
+            <div class="staff-role">Staff Member</div>
+          </div>
+        </div>
+        <button id="btnLogout" class="btn-logout" title="Log out from staff portal">
+          <span>Sign Out</span> &rarr;
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Administrative Layout -->
+  <div class="dashboard-layout">
+    
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li>
+          <button type="button" class="nav-tab-btn active" data-tab="tabOverview">
+            <span>📊</span> Overview
+          </button>
+        </li>
+        <li>
+          <button type="button" class="nav-tab-btn" data-tab="tabCreateStudent">
+            <span>👤</span> Create Student
+          </button>
+        </li>
+        <li>
+          <button type="button" class="nav-tab-btn" data-tab="tabCreateStaff">
+            <span>👔</span> Create Staff
+          </button>
+        </li>
+        <li>
+          <button type="button" class="nav-tab-btn" data-tab="tabUploadPaper">
+            <span>📤</span> Upload Paper
+          </button>
+        </li>
+        <li>
+          <button type="button" class="nav-tab-btn" data-tab="tabManagePapers">
+            <span>📑</span> Manage Papers
+          </button>
+        </li>
+        <li>
+          <button type="button" class="nav-tab-btn" data-tab="tabStudents">
+            <span>👥</span> Student Directory
+          </button>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Panel Area -->
+    <main class="main-panel">
+
+      <!-- ========================================== -->
+      <!-- TAB 1: OVERVIEW & STATS -->
+      <!-- ========================================== -->
+      <section id="tabOverview" class="tab-content active">
+        <div class="panel-card">
+          <h2 class="panel-title"><span>🏛️</span> Institutional Dashboard</h2>
+          <p class="panel-subtitle">Welcome to the Gnanamani College Question Paper repository control panel.</p>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon">📄</div>
+              <div class="stat-info">
+                <h4 id="statTotalPapers">0</h4>
+                <p>Uploaded Question Papers</p>
+              </div>
+            </div>
+
+            <div class="stat-card" style="border-left-color: var(--success);">
+              <div class="stat-icon" style="background:#f0fdf4; color:var(--success);">🎓</div>
+              <div class="stat-info">
+                <h4 id="statTotalStudents">0</h4>
+                <p>Enrolled Students</p>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="font-size:1.1rem; color:var(--primary-navy); margin: 24px 0 12px 0;">Recent Uploads</h3>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Paper Title</th>
+                  <th>Department</th>
+                  <th>Subject</th>
+                  <th>Academic Year</th>
+                </tr>
+              </thead>
+              <tbody id="recentPapersTableBody">
+                <!-- Loaded dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 2: CREATE STUDENT ACCOUNT -->
+      <!-- ========================================== -->
+      <section id="tabCreateStudent" class="tab-content">
+        <div class="panel-card">
+          <h2 class="panel-title"><span>👤</span> Create Student Account</h2>
+          <p class="panel-subtitle">Staff provisioned student registration. Student IDs are automatically computed as: YY + DeptCode + Number.</p>
+
+          <div id="createStudentAlert" class="alert-box"></div>
+
+          <form id="createStudentForm" autocomplete="off">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="studentName">Student Full Name *</label>
+                <input type="text" id="studentName" placeholder="e.g. Anand Kumar" required>
+              </div>
+
+              <div class="form-group">
+                <label for="studentYear">Joining Year *</label>
+                <input type="number" id="studentYear" value="2023" min="2020" max="2035" required>
+              </div>
+
+              <div class="form-group">
+                <label for="studentDept">Department *</label>
+                <select id="studentDept" required>
+                  <!-- Populated from DB -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="studentNum">Student Roll/Number *</label>
+                <input type="text" id="studentNum" value="001" placeholder="e.g. 001, 025" required>
+              </div>
+
+              <div class="form-group">
+                <label for="studentPass">Password *</label>
+                <input type="password" id="studentPass" placeholder="Enter password" required>
+              </div>
+
+              <div class="form-group">
+                <label for="studentConfirmPass">Confirm Password *</label>
+                <input type="password" id="studentConfirmPass" placeholder="Re-enter password" required>
+              </div>
+            </div>
+
+            <!-- Real-time ID Generation Preview -->
+            <div class="id-preview-box">
+              <div class="id-preview-text">
+                <strong>Computed Student ID:</strong> The system assigns this ID to the student account upon creation.
+              </div>
+              <div class="id-preview-badge" id="generatedIdPreview">23CS001</div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+              <span>➕ Create Student Account</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB: CREATE STAFF ACCOUNT -->
+      <!-- ========================================== -->
+      <section id="tabCreateStaff" class="tab-content">
+        <div class="panel-card">
+          <h2 class="panel-title"><span>👔</span> Create Staff Account</h2>
+          <p class="panel-subtitle">Register a new faculty or administrative staff member for Gnanamani College.</p>
+
+          <div id="createStaffAlert" class="alert-box"></div>
+
+          <form id="createStaffForm" autocomplete="off">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="newStaffName">Staff Full Name *</label>
+                <input type="text" id="newStaffName" placeholder="e.g. Dr. K. Ramesh" required>
+              </div>
+
+              <div class="form-group">
+                <label for="newStaffId">Staff ID *</label>
+                <input type="text" id="newStaffId" placeholder="e.g. STAFF002" required>
+              </div>
+
+              <div class="form-group">
+                <label for="newStaffDept">Department *</label>
+                <select id="newStaffDept" required>
+                  <!-- Populated from DB -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="newStaffPass">Password *</label>
+                <input type="password" id="newStaffPass" placeholder="Enter password" required>
+              </div>
+
+              <div class="form-group">
+                <label for="newStaffConfirmPass">Confirm Password *</label>
+                <input type="password" id="newStaffConfirmPass" placeholder="Re-enter password" required>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+              <span>➕ Create Staff Account</span>
+            </button>
+          </form>
+
+          <h3 style="font-size:1.1rem; color:var(--primary-navy); margin: 30px 0 12px 0;">Current Staff Directory</h3>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Staff ID</th>
+                  <th>Staff Name</th>
+                  <th>Department</th>
+                  <th>Role</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="staffTableBody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 3: UPLOAD QUESTION PAPER -->
+      <!-- ========================================== -->
+      <section id="tabUploadPaper" class="tab-content">
+        <div class="panel-card">
+          <h2 class="panel-title"><span>📤</span> Upload Question Paper</h2>
+          <p class="panel-subtitle">Upload verified semester question papers in standard PDF format.</p>
+
+          <div id="uploadPaperAlert" class="alert-box"></div>
+
+          <form id="uploadPaperForm" enctype="multipart/form-data">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="uploadDept">Department *</label>
+                <select id="uploadDept" required>
+                  <!-- Populated from DB -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="uploadRegulation">Regulation *</label>
+                <select id="uploadRegulation" required>
+                  <!-- Populated from DB -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="uploadSemester">Semester *</label>
+                <select id="uploadSemester" required>
+                  <option value="1">Semester 1 (Common)</option>
+                  <option value="2">Semester 2 (Common)</option>
+                  <option value="3">Semester 3</option>
+                  <option value="4">Semester 4</option>
+                  <option value="5">Semester 5</option>
+                  <option value="6">Semester 6</option>
+                  <option value="7">Semester 7</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="uploadSubject">Subject *</label>
+                <select id="uploadSubject" required>
+                  <!-- Dynamically populated based on dept + reg + sem -->
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="uploadAcademicYear">Academic Year *</label>
+                <select id="uploadAcademicYear" required>
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025" selected>2025</option>
+                  <option value="2026">2026</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="paperFile">Question Paper PDF File *</label>
+                <input type="file" id="paperFile" accept=".pdf,application/pdf" required>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-submit">
+              <span>🚀 Upload Question Paper</span>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 4: MANAGE QUESTION PAPERS -->
+      <!-- ========================================== -->
+      <section id="tabManagePapers" class="tab-content">
+        <div class="panel-card">
+          <h2 class="panel-title"><span>📑</span> Manage Question Papers</h2>
+          <p class="panel-subtitle">Review, preview, download, or delete stored question paper documents.</p>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Document Name</th>
+                  <th>Dept</th>
+                  <th>Subject</th>
+                  <th>Sem</th>
+                  <th>Year</th>
+                  <th>Uploaded Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="managePapersTableBody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 5: STUDENTS DIRECTORY -->
+      <!-- ========================================== -->
+      <section id="tabStudents" class="tab-content">
+        <div class="panel-card">
+          <h2 class="panel-title"><span>👥</span> Registered Students Directory</h2>
+          <p class="panel-subtitle">Comprehensive list of student accounts provisioned by staff.</p>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Student ID</th>
+                  <th>Student Name</th>
+                  <th>Department</th>
+                  <th>Role</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="studentsTableBody">
+                <!-- Populated dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

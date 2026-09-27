@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Gnanamani College of Technology | Question Paper Portal</title>
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <header class="brand-header">
+        <div class="brand-logo-wrap">
+          <img src="assets/images/gnanamani_logo.jpg" 
+               alt="Gnanamani College of Technology" 
+               class="brand-logo">
+        </div>
+        <h1 class="college-title">Gnanamani College of Technology</h1>
+        <p class="portal-subtitle">Question Paper Portal</p>
+      </header>
+
+      <div id="alertBox" class="alert-message" role="alert"></div>
+
+      <form id="loginForm" autocomplete="off">
+        <div class="form-group">
+          <label for="userId">User ID</label>
+          <div class="input-wrap">
+            <input type="text" id="userId" name="user_id" placeholder="Enter your User ID" required autofocus>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+          </div>
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-primary">
+          <span>Sign In</span> &rarr;
+        </button>
+      </form>
+    </div>
+
+    <footer class="portal-footer">
+      &copy; 2024 Gnanamani College of Technology. All rights reserved.
+    </footer>
+  </div>
+
+  <script src="js/login.js"></script>
+</body>
+</html>
